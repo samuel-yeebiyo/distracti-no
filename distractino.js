@@ -1,34 +1,25 @@
-window.addEventListener('popstate', (event) => {
-
-    console.log("Updated")
-    console.log(event.state)
-    removeRecommendedVideos();
-    removeRelatedVideos();
-
-})
-
-
-const removeRecommendedVideos = () => {
-    // In the homepage
-    /**
-    
-    Another option would just be to blanket the videos and give option with timwout
-    to see the videos underneath
-    
-    Things to remove from the sidebar
-    * Shorts
-    * Subscriptions
-    * Explore
-    * More from YouTube
-    */
-   
+const config = {attributes: true, childList: true, subTree: true}
+const callback = (mutationList, observer) =>{
+    for(const mutation of mutationList){
+        if(mutation.type === 'childList'){
+            console.log("child node added or removed")
+            const skipButton = document.querySelector(".ytp-ad-skip-button")
+            if(skipButton){
+                console.log("Found skip button")
+                skipButton.click()
+            }
+        }else if(mutation.type === 'attributes'){
+            console.log(`The ${mutation.attributeName} attribute was changed`)
+        }else{
+            console.log("something else changed")
+        }
+    }
 }
-    
-const removeRelatedVideos = () =>{
-    // During video
-    /**
-     Skip ads automatically
-     Remove recommended vidoes on the side
-     */
-    
+
+
+const observer = new MutationObserver(callback)
+const targetNode = document.querySelector(".video-ads")
+console.log(targetNode)
+if(targetNode){
+    observer.observe(targetNode, config)
 }
