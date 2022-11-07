@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Distractino",
+    "version": "1.0",
+  
+    "description": "Helps you fight online distractions.",
+  
+    "icons": {
+      "48": "icons/distractino.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["*://*.youtube.com/*"],
+        "js": ["distractino.js"],
+        "css": ["./main.css"],
+        "run_at": "document_end"
+      }
+    ],
+
+    "browser_specific_settings": {
+        "gecko": {
+          "id": "distractino@example.com"
+        }
+    }
+}
+  
