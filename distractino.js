@@ -1,3 +1,6 @@
+window.addEventListener('popstate', (event) => {
+    watchForAds()
+})
 const config = {attributes: true, childList: true, subTree: true}
 const callback = (mutationList, observer) =>{
     for(const mutation of mutationList){
@@ -16,10 +19,12 @@ const callback = (mutationList, observer) =>{
     }
 }
 
+const watchForAds = () => {
+    const targetNode = document.querySelector(".video-ads")
 
-const observer = new MutationObserver(callback)
-const targetNode = document.querySelector(".video-ads")
-console.log(targetNode)
-if(targetNode){
-    observer.observe(targetNode, config)
+    if(targetNode){
+        const observer = new MutationObserver(callback)
+        observer.observe(targetNode, config)
+    }
 }
+watchForAds()
